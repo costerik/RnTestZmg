@@ -1,16 +1,20 @@
+import 'react-native-gesture-handler';
 import React, {ReactElement} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 import {View, Text} from 'react-native';
 
 const App = (): ReactElement => {
   return (
-    <View
-      style={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-      }}>
-      <Text> Hello</Text>
-    </View>
+    <NavigationContainer>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+        }}>
+        <Text> Hello</Text>
+      </View>
+    </NavigationContainer>
   );
 };
 
