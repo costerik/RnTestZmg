@@ -1,0 +1,16 @@
+dist
+coverage
+flow-typed
+node_modules
+yarn-cache
+build
+android
+ios
+patches
+storybook/storyLoader.js
+storybook/storybook.js
+metro.config.js
+storybook/*
+.build-storybook/*
+.git
+.idea
