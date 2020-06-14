@@ -15,7 +15,6 @@ const Stack = createStackNavigator();
 const MainStack = (): ReactElement => {
   return (
     <Stack.Navigator
-      initialRouteName="PostDescription"
       screenOptions={{
         headerStyle: {
           backgroundColor: 'green',
