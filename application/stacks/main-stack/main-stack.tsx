@@ -1,5 +1,9 @@
 import React, {ReactElement} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useDispatch} from 'react-redux';
+
+// actions
+import {fetchPosts} from '../../reducers/posts-reducer/actions';
 
 // components
 import HeaderRight from '../../components/header-right';
@@ -13,6 +17,10 @@ import PostsStack from '../posts-stacks';
 const Stack = createStackNavigator();
 
 const MainStack = (): ReactElement => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(fetchPosts());
+  }, []);
   return (
     <Stack.Navigator
       screenOptions={{
