@@ -11,6 +11,7 @@
     "ts": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/segmented-control": "^2.0.0",
     "@react-navigation/material-top-tabs": "^5.2.10",
