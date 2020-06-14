@@ -5,5 +5,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 50,
+    backgroundColor: 'red',
   },
 });

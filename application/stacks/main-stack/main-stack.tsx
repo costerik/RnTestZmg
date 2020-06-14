@@ -34,7 +34,13 @@ const MainStack = (): ReactElement => {
         options={{
           title: 'Posts',
           headerRight: (): ReactElement => {
-            return <HeaderRight />;
+            return (
+              <HeaderRight
+                onPress={(): void => {
+                  dispatch(fetchPosts());
+                }}
+              />
+            );
           },
         }}
         component={PostsStack}

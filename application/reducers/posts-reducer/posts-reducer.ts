@@ -11,6 +11,7 @@ export default (state: StateType = initialState, action: PostsActionsTypes): Sta
         state: action.payload.state,
       };
     case actionTypes.FINISHED_FETCH_POSTS:
+    case actionTypes.SWIPE_UPDATE_POSTS:
       return {
         ...state,
         state: action.payload.state,
@@ -22,6 +23,11 @@ export default (state: StateType = initialState, action: PostsActionsTypes): Sta
         ...state,
         state: action.payload.state,
         error: action.payload.error,
+      };
+    case actionTypes.DELETE_ALL_POSTS:
+      return {
+        ...state,
+        posts: [],
       };
     default:
       return {

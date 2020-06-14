@@ -11,11 +11,11 @@ import style from './header-right.style';
 const HeaderRight = ({
   //name = 'ios-refresh',
   //size = 30,
-  //color = '#ffffff',
+  color = '#ffffff',
   onPress,
 }: HeaderRightType): ReactElement => {
   return (
-    <TouchableOpacity style={style.container} onPress={onPress}>
+    <TouchableOpacity style={[style.container, {backgroundColor: color}]} onPress={onPress}>
       {/*<Icon name={name} size={size} color={color} />*/}
     </TouchableOpacity>
   );

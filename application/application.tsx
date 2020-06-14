@@ -1,9 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {ReactElement} from 'react';
+import {SafeAreaView, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-
-//components
-import StatusBar from './components/status-bar';
 
 // Redux
 import {Provider} from 'react-redux';
@@ -14,12 +12,14 @@ import MainStack from './stacks';
 
 const App = (): ReactElement => {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <StatusBar backgroundColor="green" barStyle="light-content" />
-        <MainStack />
-      </NavigationContainer>
-    </Provider>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'green'}}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <StatusBar backgroundColor="green" barStyle="light-content" />
+          <MainStack />
+        </NavigationContainer>
+      </Provider>
+    </SafeAreaView>
   );
 };
 

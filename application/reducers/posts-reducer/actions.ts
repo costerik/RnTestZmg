@@ -7,7 +7,7 @@ import * as actionTypes from './action-types';
 import * as generalActionTypes from '../general-actions-types';
 const BASE_URL = `https://jsonplaceholder.typicode.com`;
 
-// utilities
+//utilities;
 //import * as storage from '../../utilities/async-storage';
 
 // types
@@ -41,10 +41,28 @@ export const fetchPosts = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
     dispatch(startedFetchPosts());
     const {data} = await axios.get<Array<PostType>>(`${BASE_URL}/posts`);
-    dispatch(finishedFetchPosts(data));
+    const newData = data.map((e, index) => {
+      return {...e, key: e.id.toString(), read: index >= 19, favorite: false};
+    });
+    dispatch(finishedFetchPosts(newData));
     try {
     } catch (e) {
       dispatch(errorFetchPosts(e));
     }
   };
 };
+
+export const swipeUpdatePosts = (posts: Array<PostType>): PostsActionsTypes => ({
+  type: actionTypes.SWIPE_UPDATE_POSTS,
+  payload: {
+    state: generalActionTypes.UPDATE,
+    posts,
+  },
+});
+
+export const deleteAllPosts = (): PostsActionsTypes => ({
+  type: actionTypes.DELETE_ALL_POSTS,
+  payload: {
+    state: generalActionTypes.DELETE,
+  },
+});
