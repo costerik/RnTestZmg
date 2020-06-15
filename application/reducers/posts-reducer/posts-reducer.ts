@@ -4,7 +4,6 @@ import * as actionTypes from './action-types';
 import type {StateType, PostsActionsTypes} from './types';
 
 export default (state: StateType = initialState, action: PostsActionsTypes): StateType => {
-  console.log('ACTION', action.payload);
   switch (action.type) {
     case actionTypes.STARTED_FETCH_POSTS:
       return {

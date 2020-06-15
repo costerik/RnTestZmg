@@ -44,6 +44,7 @@ const AllPosts = ({}: AllPostsType): ReactElement => {
       </View>
     );
   };
+
   return (
     <View style={style.container}>
       {state === 'FETCHING' ? (
