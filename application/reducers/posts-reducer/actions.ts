@@ -42,7 +42,7 @@ export const fetchPosts = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     dispatch(startedFetchPosts());
     const {data} = await axios.get<Array<PostType>>(`${BASE_URL}/posts`);
     const newData = data.map((e, index) => {
-      return {...e, key: e.id.toString(), read: index >= 19, favorite: false};
+      return {...e, key: e.id.toString(), read: index >= 19, favorite: index % 2 === 0};
     });
     dispatch(finishedFetchPosts(newData));
     try {

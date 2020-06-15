@@ -21,7 +21,17 @@ import {PostType} from 'application/reducers/posts-reducer/types';
 const IOSPosts = ({}: IOSPostsType): ReactElement => {
   const [filter, setFilter] = React.useState(0);
   const dispatch = useDispatch();
-  const posts = useSelector((state: ReturnRootStateType) => state.postsReducer.posts);
+  const posts = useSelector((state: ReturnRootStateType) =>
+    state.postsReducer.posts.filter((e) => {
+      if (filter === 1) {
+        if (e.favorite) {
+          return e;
+        }
+      } else {
+        return e;
+      }
+    }),
+  );
 
   const deleteRow = (rowKey: string): void => {
     const newData = [...posts];
