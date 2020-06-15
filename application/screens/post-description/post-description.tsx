@@ -4,7 +4,12 @@ import {Text, View, ScrollView, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 // actions
-import {fetchUserData, fetchComments, cleanSelectedPost} from '../../reducers/posts-reducer/actions';
+import {
+  fetchPost,
+  fetchUserData,
+  fetchComments,
+  cleanSelectedPost,
+} from '../../reducers/posts-reducer/actions';
 
 // types
 import type {PostDescriptionType} from './post-description.types';
@@ -18,6 +23,7 @@ const PostDescription = ({route}: PostDescriptionType): ReactElement => {
   const dispatch = useDispatch();
 
   const fetchData = async (): Promise<void> => {
+    dispatch(fetchPost(id));
     await Promise.all([dispatch(fetchUserData(userId)), dispatch(fetchComments(id))]);
   };
 
@@ -26,9 +32,6 @@ const PostDescription = ({route}: PostDescriptionType): ReactElement => {
   }, []);
 
   const state = useSelector((state: ReturnRootStateType) => state.postsReducer);
-  const [post] = React.useState(() => {
-    return state.posts.find((e) => e.id === id);
-  });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -44,7 +47,7 @@ const PostDescription = ({route}: PostDescriptionType): ReactElement => {
         <>
           <View>
             <Text style={style.title}>Description</Text>
-            <Text style={style.description}>{post?.body}</Text>
+            <Text style={style.description}>{state.postSelected.post?.body}</Text>
           </View>
           <View>
             <Text style={style.title}>User</Text>

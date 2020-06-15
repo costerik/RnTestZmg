@@ -12,7 +12,8 @@ export const get = async <T>(key: string): Promise<T | null> => {
   }
 };
 
-export const save = async (key: string, value: string | number | boolean): Promise<void> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const save = async (key: string, value: any): Promise<void> => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch {

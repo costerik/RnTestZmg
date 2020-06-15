@@ -8,7 +8,7 @@ import {SwipeListView} from 'react-native-swipe-list-view';
 import ItemRow from '../../components/item-row';
 
 // actions
-import {swipeUpdatePosts, deleteAllPosts} from '../../reducers/posts-reducer/actions';
+import {swipeUpdatePosts, deleteAllPosts, updatePost} from '../../reducers/posts-reducer/actions';
 
 // types
 import type {IOSPostsType} from './ios-posts.types';
@@ -46,6 +46,7 @@ const IOSPosts = ({navigation}: IOSPostsType): ReactElement => {
       <ItemRow
         {...data.item}
         onPress={(id, userId): void => {
+          dispatch(updatePost(id, 'read'));
           navigation.navigate('PostDescription', {id, userId});
         }}
       />

@@ -9,7 +9,7 @@ import {SwipeListView} from 'react-native-swipe-list-view';
 import ItemRow from '../../components/item-row';
 
 // actions
-import {swipeUpdatePosts, deleteAllPosts} from '../../reducers/posts-reducer/actions';
+import {swipeUpdatePosts, deleteAllPosts, updatePost} from '../../reducers/posts-reducer/actions';
 
 // types
 import type {FavoritesPostsType} from './favorites-posts.types';
@@ -38,6 +38,7 @@ const FavoritesPosts = ({navigation}: FavoritesPostsType): ReactElement => {
       <ItemRow
         {...data.item}
         onPress={(id, userId): void => {
+          dispatch(updatePost(id, 'favorite'));
           navigation.navigate('PostDescription', {id, userId});
         }}
       />

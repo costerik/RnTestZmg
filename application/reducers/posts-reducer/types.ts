@@ -173,6 +173,29 @@ export type CleanSelectedPostType = {
   };
 };
 
+export type StartedUpdatePostType = {
+  type: typeof actionsTypes.STARTED_UPDATE_POST;
+  payload: {
+    state: string;
+  };
+};
+
+export type FinishedUpdatePostType = {
+  type: typeof actionsTypes.FINISHED_UPDATE_POST;
+  payload: {
+    state: string;
+    posts: Array<PostType>;
+  };
+};
+
+export type ErrorUpdatePostType = {
+  type: typeof actionsTypes.ERROR_UPDATE_POST;
+  payload: {
+    state: string;
+    error: string;
+  };
+};
+
 export type PostsActionsTypes =
   | StartedFetchPostsType
   | FinishedFetchPostsType
@@ -186,6 +209,9 @@ export type PostsActionsTypes =
   | StartedFetchPostType
   | FinishedFetchPostType
   | ErrorFetchPostType
+  | StartedUpdatePostType
+  | FinishedUpdatePostType
+  | ErrorUpdatePostType
   | SwipeUpdatePostsType
   | DeleteAllPostsType
   | CleanSelectedPostType;
