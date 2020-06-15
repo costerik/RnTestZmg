@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import SegmentedControl from '@react-native-community/segmented-control';
 import {useSelector, useDispatch} from 'react-redux';
 import {SwipeListView} from 'react-native-swipe-list-view';
@@ -13,10 +13,10 @@ import {swipeUpdatePosts, deleteAllPosts} from '../../reducers/posts-reducer/act
 // types
 import type {IOSPostsType} from './ios-posts.types';
 import type {ReturnRootStateType} from '../../reducers/reducers';
+import {PostType} from '../../reducers/posts-reducer/types';
 
 // style
 import style from './ios-posts.style';
-import {PostType} from 'application/reducers/posts-reducer/types';
 
 const IOSPosts = ({}: IOSPostsType): ReactElement => {
   const [filter, setFilter] = React.useState(0);
@@ -32,6 +32,7 @@ const IOSPosts = ({}: IOSPostsType): ReactElement => {
       }
     }),
   );
+  const state = useSelector((state: ReturnRootStateType) => state.postsReducer.state);
 
   const deleteRow = (rowKey: string): void => {
     const newData = [...posts];
@@ -56,7 +57,7 @@ const IOSPosts = ({}: IOSPostsType): ReactElement => {
 
   return (
     <View style={style.container}>
-      <View style={{flex: 1}}>
+      <View style={style.flex}>
         <SegmentedControl
           values={['All', 'Favorites']}
           selectedIndex={filter}
@@ -67,17 +68,23 @@ const IOSPosts = ({}: IOSPostsType): ReactElement => {
           activeFontStyle={style.activeFontStyle}
           style={style.segmentedControlStyle}
         />
-        <SwipeListView
-          disableRightSwipe
-          data={posts}
-          renderItem={renderItem}
-          renderHiddenItem={renderHiddenItem}
-          leftOpenValue={75}
-          rightOpenValue={-150}
-          previewRowKey={'0'}
-          previewOpenValue={-40}
-          previewOpenDelay={3000}
-        />
+        {state === 'FETCHING' ? (
+          <View style={style.flexCenter}>
+            <ActivityIndicator color="green" />
+          </View>
+        ) : (
+          <SwipeListView
+            disableRightSwipe
+            data={posts}
+            renderItem={renderItem}
+            renderHiddenItem={renderHiddenItem}
+            leftOpenValue={75}
+            rightOpenValue={-150}
+            previewRowKey={'0'}
+            previewOpenValue={-40}
+            previewOpenDelay={3000}
+          />
+        )}
       </View>
       <TouchableOpacity
         style={style.button}

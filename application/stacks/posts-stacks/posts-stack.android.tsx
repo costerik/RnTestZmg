@@ -10,6 +10,7 @@ const Tab = createMaterialTopTabNavigator();
 const PostsStack = (): ReactElement => {
   return (
     <Tab.Navigator
+      swipeEnabled={false}
       tabBarOptions={{
         indicatorStyle: {
           backgroundColor: '#ffffff',

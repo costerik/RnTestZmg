@@ -5,6 +5,14 @@ export default StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'space-between',
   },
+  flex: {
+    flex: 1,
+  },
+  flexCenter: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   activeFontStyle: {color: '#ffffff'},
   segmentedControlStyle: {
     backgroundColor: '#ffffff',
