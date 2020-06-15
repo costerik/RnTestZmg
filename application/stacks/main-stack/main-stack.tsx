@@ -26,7 +26,6 @@ const Stack = createStackNavigator<RootStackParamListType>();
 
 const isFavorite = async (selectedPostId: number): Promise<boolean> => {
   const readFav = await get<Array<number>>('FAVORITE');
-  console.log('isFavorite', readFav);
   if (readFav) {
     const found = readFav.find((e) => e === selectedPostId);
     if (found) {
@@ -83,9 +82,7 @@ const MainStack = (): ReactElement => {
                 name={isFav ? 'ios-star' : 'ios-star-outline'}
                 onPress={async (): Promise<void> => {
                   const fav = await isFavorite(state.postSelected.post?.id as number);
-                  if (!fav) {
-                    dispatch(updatePost(state.postSelected.post?.id as number, 'favorite'));
-                  }
+                  dispatch(updatePost(state.postSelected.post?.id as number, 'favorite', !fav));
                 }}
               />
             );

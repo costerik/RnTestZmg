@@ -20,14 +20,14 @@ const ItemRow = ({read, favorite, body, id, userId, onPress}: ItemRowType): Reac
       <>
         <View style={style.left}>
           {!read && <View style={style.circle} />}
-          {ios && read && favorite && <Icon name="ios-star" size={20} color="yellow" />}
+          {ios && read && favorite && <Icon name="ios-star" size={20} color="gold" />}
         </View>
         <View style={style.center}>
           <Text style={style.centerText}>{body}</Text>
         </View>
         <View style={style.right}>
           {ios && <Icon name="ios-arrow-forward" size={20} color="gray" />}
-          {!ios && favorite && <Icon name="ios-star" size={20} color="yellow" />}
+          {!ios && favorite && <Icon name="ios-star" size={20} color="gold" />}
         </View>
       </>
     </TouchableHighlight>

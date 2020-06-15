@@ -240,6 +240,8 @@ export const errorUpdatePost = (error: string): PostsActionsTypes => ({
 export const updatePost = (
   id: number,
   property: keyof PostType,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any = true,
 ): ThunkAction<Promise<void>, ReturnRootStateType, {}, AnyAction> => {
   return async (
     dispatch: ThunkDispatch<{}, {}, AnyAction>,
@@ -252,7 +254,6 @@ export const updatePost = (
       } = getState();
       const keyStorage = property.toUpperCase();
       const getResponse = await storage.get<Array<number>>(keyStorage);
-      console.log(property, getResponse, id);
       let read: Array<number> = [];
       if (!getResponse) {
         await storage.save(keyStorage, '[]');
@@ -262,10 +263,14 @@ export const updatePost = (
       const found = read.find((e) => e === id);
       if (!found) {
         read.push(id);
+      } else {
+        if (!value) {
+          read = [...read.filter((e) => e !== id)];
+        }
       }
       await storage.save(keyStorage, read);
 
-      const newPosts = posts.map((e) => ({...e, [property]: e.id === id ? true : e[property]}));
+      const newPosts = posts.map((e) => ({...e, [property]: e.id === id ? value : e[property]}));
       dispatch(finishedUpdatePost(newPosts));
     } catch (e) {
       dispatch(errorUpdatePost(e));
