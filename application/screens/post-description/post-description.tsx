@@ -1,9 +1,10 @@
 import React, {ReactElement} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
 import {Text, View, ScrollView, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 // actions
-import {fetchUserData, fetchComments} from '../../reducers/posts-reducer/actions';
+import {fetchUserData, fetchComments, cleanSelectedPost} from '../../reducers/posts-reducer/actions';
 
 // types
 import type {PostDescriptionType} from './post-description.types';
@@ -29,6 +30,14 @@ const PostDescription = ({route}: PostDescriptionType): ReactElement => {
     return state.posts.find((e) => e.id === id);
   });
 
+  useFocusEffect(
+    React.useCallback(() => {
+      return (): void => {
+        dispatch(cleanSelectedPost());
+      };
+    }, []),
+  );
+
   return (
     <ScrollView style={style.container} contentContainerStyle={{flexGrow: 1}}>
       {state.state !== 'FETCHING' ? (
@@ -39,10 +48,10 @@ const PostDescription = ({route}: PostDescriptionType): ReactElement => {
           </View>
           <View>
             <Text style={style.title}>User</Text>
-            <Text style={style.userData}>{`Name    : ${state.postSelected.user?.name}`}</Text>
-            <Text style={style.userData}>{`Email   : ${state.postSelected.user?.email}`}</Text>
-            <Text style={style.userData}>{`Phone   : ${state.postSelected.user?.phone}`}</Text>
-            <Text style={style.userData}>{`Website : ${state.postSelected.user?.website}`}</Text>
+            <Text style={style.userData}>{`Name    : ${state.postSelected.user?.name || ''}`}</Text>
+            <Text style={style.userData}>{`Email   : ${state.postSelected.user?.email || ''}`}</Text>
+            <Text style={style.userData}>{`Phone   : ${state.postSelected.user?.phone || ''}`}</Text>
+            <Text style={style.userData}>{`Website : ${state.postSelected.user?.website || ''}`}</Text>
           </View>
           <View>
             <View style={style.wrapperTitle}>

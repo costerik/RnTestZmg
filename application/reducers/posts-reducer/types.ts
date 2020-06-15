@@ -166,6 +166,13 @@ export type DeleteAllPostsType = {
   };
 };
 
+export type CleanSelectedPostType = {
+  type: typeof actionsTypes.CLEAN_SELECTED_POST;
+  payload: {
+    state: string;
+  };
+};
+
 export type PostsActionsTypes =
   | StartedFetchPostsType
   | FinishedFetchPostsType
@@ -180,4 +187,5 @@ export type PostsActionsTypes =
   | FinishedFetchPostType
   | ErrorFetchPostType
   | SwipeUpdatePostsType
-  | DeleteAllPostsType;
+  | DeleteAllPostsType
+  | CleanSelectedPostType;

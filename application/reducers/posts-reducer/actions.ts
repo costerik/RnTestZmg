@@ -174,3 +174,10 @@ export const fetchPost = (id: number): ThunkAction<Promise<void>, {}, {}, AnyAct
     }
   };
 };
+
+export const cleanSelectedPost = (): PostsActionsTypes => ({
+  type: actionTypes.CLEAN_SELECTED_POST,
+  payload: {
+    state: generalActionTypes.UPDATE,
+  },
+});

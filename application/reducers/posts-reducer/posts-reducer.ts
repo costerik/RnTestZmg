@@ -65,6 +65,16 @@ export default (state: StateType = initialState, action: PostsActionsTypes): Sta
         ...state,
         posts: [],
       };
+    case actionTypes.CLEAN_SELECTED_POST:
+      return {
+        ...state,
+        state: action.payload.state,
+        postSelected: {
+          user: null,
+          post: null,
+          comments: [],
+        },
+      };
     default:
       return {
         ...state,
