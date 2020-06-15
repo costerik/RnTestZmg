@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import {Text, View, TouchableOpacity, ActivityIndicator} from 'react-native';
 import ActionButton from 'react-native-action-button';
-//import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector, useDispatch} from 'react-redux';
 import {SwipeListView} from 'react-native-swipe-list-view';
 
@@ -76,10 +76,10 @@ const AllPosts = ({navigation}: AllPostsType): ReactElement => {
         onPress={(): void => {
           dispatch(deleteAllPosts());
         }}
+        renderIcon={(): ReactElement => <Icon name="md-trash" size={25} color="#ffffff" />}
       />
     </View>
   );
 };
 
 export default AllPosts;
-//renderIcon={(): ReactElement => <Icon name="md-trash" size={25} color="#ffffff" />}

@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react';
 import {Text, View, Platform, TouchableHighlight} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // types
 import type {ItemRowType} from './item-row.types';
@@ -19,14 +20,14 @@ const ItemRow = ({read, favorite, body, id, userId, onPress}: ItemRowType): Reac
       <>
         <View style={style.left}>
           {!read && <View style={style.circle} />}
-          {ios && read && favorite && <View style={{...style.circle, backgroundColor: 'yellow'}} />}
+          {ios && read && favorite && <Icon name="ios-star" size={20} color="yellow" />}
         </View>
         <View style={style.center}>
           <Text style={style.centerText}>{body}</Text>
         </View>
         <View style={style.right}>
-          {ios && <View style={{...style.circle, backgroundColor: 'gray'}} />}
-          {!ios && favorite && <View style={{...style.circle, backgroundColor: 'yellow'}} />}
+          {ios && <Icon name="ios-arrow-forward" size={20} color="gray" />}
+          {!ios && favorite && <Icon name="ios-star" size={20} color="yellow" />}
         </View>
       </>
     </TouchableHighlight>
