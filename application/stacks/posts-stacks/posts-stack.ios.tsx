@@ -1,12 +1,17 @@
 import React, {ReactElement} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
+// types
+export type PostsStackParamListType = {
+  IOSPosts: undefined;
+};
+
 // screens
 import IOSPosts from '../../screens/ios-posts';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<PostsStackParamListType>();
 
-const PostStack = (): ReactElement => {
+const PostsStack = (): ReactElement => {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="IOSPosts" component={IOSPosts} />
@@ -14,4 +19,4 @@ const PostStack = (): ReactElement => {
   );
 };
 
-export default PostStack;
+export default PostsStack;

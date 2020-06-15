@@ -6,6 +6,11 @@ const state: StateType = {
   state: generalActionsTypes.IDLE,
   posts: [],
   error: null,
+  postSelected: {
+    post: null,
+    user: null,
+    comments: [],
+  },
 };
 
 export default state;

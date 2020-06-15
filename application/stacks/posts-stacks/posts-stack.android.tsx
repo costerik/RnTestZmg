@@ -5,7 +5,13 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import AllPosts from '../../screens/all-posts';
 import FavoritesPosts from '../../screens/favorites-posts';
 
-const Tab = createMaterialTopTabNavigator();
+// types
+export type PostsStackParamListType = {
+  All: undefined;
+  Favorites: undefined;
+};
+
+const Tab = createMaterialTopTabNavigator<PostsStackParamListType>();
 
 const PostsStack = (): ReactElement => {
   return (

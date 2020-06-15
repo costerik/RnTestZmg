@@ -7,10 +7,15 @@ import type {ItemRowType} from './item-row.types';
 // style
 import style from './item-row.style';
 
-const ItemRow = ({read, favorite, body}: ItemRowType): ReactElement => {
+const ItemRow = ({read, favorite, body, id, userId, onPress}: ItemRowType): ReactElement => {
   const ios = Platform.OS === 'ios' ? true : false;
   return (
-    <TouchableHighlight style={style.container}>
+    <TouchableHighlight
+      underlayColor="#ffffff"
+      style={style.container}
+      onPress={(): void => {
+        onPress(id, userId);
+      }}>
       <>
         <View style={style.left}>
           {!read && <View style={style.circle} />}

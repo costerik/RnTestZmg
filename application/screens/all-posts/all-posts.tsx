@@ -19,7 +19,7 @@ import {PostType} from '../../reducers/posts-reducer/types';
 // style
 import style from './all-posts.style';
 
-const AllPosts = ({}: AllPostsType): ReactElement => {
+const AllPosts = ({navigation}: AllPostsType): ReactElement => {
   const posts = useSelector((state: ReturnRootStateType) => state.postsReducer.posts);
   const state = useSelector((state: ReturnRootStateType) => state.postsReducer.state);
   const dispatch = useDispatch();
@@ -32,7 +32,14 @@ const AllPosts = ({}: AllPostsType): ReactElement => {
   };
 
   const renderItem = (data: {index: number; item: PostType}): ReactElement => {
-    return <ItemRow {...data.item} />;
+    return (
+      <ItemRow
+        {...data.item}
+        onPress={(id, userId): void => {
+          navigation.navigate('PostDescription', {id, userId});
+        }}
+      />
+    );
   };
 
   const renderHiddenItem = (data: {index: number; item: PostType}): ReactElement => {

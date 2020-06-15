@@ -18,7 +18,7 @@ import {PostType} from '../../reducers/posts-reducer/types';
 // style
 import style from './ios-posts.style';
 
-const IOSPosts = ({}: IOSPostsType): ReactElement => {
+const IOSPosts = ({navigation}: IOSPostsType): ReactElement => {
   const [filter, setFilter] = React.useState(0);
   const dispatch = useDispatch();
   const posts = useSelector((state: ReturnRootStateType) =>
@@ -42,7 +42,14 @@ const IOSPosts = ({}: IOSPostsType): ReactElement => {
   };
 
   const renderItem = (data: {index: number; item: PostType}): ReactElement => {
-    return <ItemRow {...data.item} />;
+    return (
+      <ItemRow
+        {...data.item}
+        onPress={(id, userId): void => {
+          navigation.navigate('PostDescription', {id, userId});
+        }}
+      />
+    );
   };
 
   const renderHiddenItem = (data: {index: number; item: PostType}): ReactElement => {

@@ -31,6 +31,7 @@ module.exports = {
   rules: {
     'sort-imports': OFF,
     //eslint-plugin-react
+    'react/prop-types': OFF,
     'react/display-name': [OFF, {ignoreTranspilerName: OFF}],
     'react/jsx-props-no-spreading': [OFF],
     // @typescript-eslint

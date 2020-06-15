@@ -19,7 +19,7 @@ import {PostType} from '../../reducers/posts-reducer/types';
 // style
 import style from './favorites-posts.style';
 
-const FavoritesPosts = ({}: FavoritesPostsType): ReactElement => {
+const FavoritesPosts = ({navigation}: FavoritesPostsType): ReactElement => {
   const posts = useSelector((state: ReturnRootStateType) =>
     state.postsReducer.posts.filter((e) => e.favorite),
   );
@@ -34,7 +34,14 @@ const FavoritesPosts = ({}: FavoritesPostsType): ReactElement => {
   };
 
   const renderItem = (data: {index: number; item: PostType}): ReactElement => {
-    return <ItemRow {...data.item} />;
+    return (
+      <ItemRow
+        {...data.item}
+        onPress={(id, userId): void => {
+          navigation.navigate('PostDescription', {id, userId});
+        }}
+      />
+    );
   };
 
   const renderHiddenItem = (data: {index: number; item: PostType}): ReactElement => {

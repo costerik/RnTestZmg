@@ -11,10 +11,16 @@ import HeaderRight from '../../components/header-right';
 // Screens
 import PostDescription from '../../screens/post-description';
 
+// type
+export type RootStackParamListType = {
+  PostsStack: undefined;
+  PostDescription: {id: number; userId: number};
+};
+
 // Stacks
 import PostsStack from '../posts-stacks';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamListType>();
 
 const MainStack = (): ReactElement => {
   const dispatch = useDispatch();

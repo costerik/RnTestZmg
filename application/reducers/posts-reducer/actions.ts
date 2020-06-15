@@ -11,7 +11,7 @@ const BASE_URL = `https://jsonplaceholder.typicode.com`;
 //import * as storage from '../../utilities/async-storage';
 
 // types
-import type {PostsActionsTypes, PostType} from './types';
+import type {PostsActionsTypes, PostType, UserType, CommentType} from './types';
 
 /* posts */
 export const startedFetchPosts = (): PostsActionsTypes => ({
@@ -66,3 +66,111 @@ export const deleteAllPosts = (): PostsActionsTypes => ({
     state: generalActionTypes.DELETE,
   },
 });
+
+/* user */
+export const startedFetchUserData = (): PostsActionsTypes => ({
+  type: actionTypes.STARTED_FETCH_USER_DATA,
+  payload: {
+    state: generalActionTypes.FETCHING,
+  },
+});
+
+export const finishedFetchUserData = (user: UserType): PostsActionsTypes => ({
+  type: actionTypes.FINISHED_FETCH_USER_DATA,
+  payload: {
+    state: generalActionTypes.FINISHED,
+    user,
+  },
+});
+
+export const errorFetchUserData = (error: string): PostsActionsTypes => ({
+  type: actionTypes.ERROR_FETCH_USER_DATA,
+  payload: {
+    state: generalActionTypes.ERROR,
+    error,
+  },
+});
+
+export const fetchUserData = (id: number): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+    dispatch(startedFetchPosts());
+    const {data} = await axios.get<UserType>(`${BASE_URL}/users/${id}`);
+    dispatch(finishedFetchUserData(data));
+    try {
+    } catch (e) {
+      dispatch(errorFetchPosts(e));
+    }
+  };
+};
+
+/* comments */
+export const startedFetchComments = (): PostsActionsTypes => ({
+  type: actionTypes.STARTED_FETCH_COMMENTS,
+  payload: {
+    state: generalActionTypes.FETCHING,
+  },
+});
+
+export const finishedFetchComments = (comments: Array<CommentType>): PostsActionsTypes => ({
+  type: actionTypes.FINISHED_FETCH_COMMENTS,
+  payload: {
+    state: generalActionTypes.FINISHED,
+    comments,
+  },
+});
+
+export const errorFetchComments = (error: string): PostsActionsTypes => ({
+  type: actionTypes.ERROR_FETCH_COMMENTS,
+  payload: {
+    state: generalActionTypes.ERROR,
+    error,
+  },
+});
+
+export const fetchComments = (id: number): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+    dispatch(startedFetchComments());
+    try {
+      const {data} = await axios.get<Array<CommentType>>(`${BASE_URL}/posts/${id}/comments`);
+      dispatch(finishedFetchComments(data));
+    } catch (e) {
+      dispatch(errorFetchComments(e));
+    }
+  };
+};
+
+/* post */
+export const startedFetchPost = (): PostsActionsTypes => ({
+  type: actionTypes.STARTED_FETCH_POST,
+  payload: {
+    state: generalActionTypes.FETCHING,
+  },
+});
+
+export const finishedFetchPost = (post: PostType): PostsActionsTypes => ({
+  type: actionTypes.FINISHED_FETCH_POST,
+  payload: {
+    state: generalActionTypes.FINISHED,
+    post,
+  },
+});
+
+export const errorFetchPost = (error: string): PostsActionsTypes => ({
+  type: actionTypes.ERROR_FETCH_POST,
+  payload: {
+    state: generalActionTypes.ERROR,
+    error,
+  },
+});
+
+export const fetchPost = (id: number): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+    dispatch(startedFetchPost());
+    try {
+      const {data} = await axios.get<PostType>(`${BASE_URL}/posts/${id}`);
+      dispatch(finishedFetchPost(data));
+    } catch (e) {
+      dispatch(errorFetchPost(e));
+    }
+  };
+};

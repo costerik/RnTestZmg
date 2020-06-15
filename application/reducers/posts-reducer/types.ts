@@ -10,10 +10,53 @@ export type PostType = {
   favorite: boolean;
 };
 
+export type CommentType = {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+};
+
+export type UserType = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: AddressType;
+  phone: string;
+  website: string;
+  company: CompanyType;
+};
+
+export type AddressType = {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+  geo: GeoType;
+};
+
+export type GeoType = {
+  lat: string;
+  lng: string;
+};
+
+export type CompanyType = {
+  name: string;
+  catchPhrase: string;
+  bs: string;
+};
+
 export type StateType = {
   state: string;
   posts: Array<PostType>;
   error: string | null | undefined;
+  postSelected: {
+    post: PostType | null;
+    user: UserType | null;
+    comments: Array<CommentType>;
+  };
 };
 
 export type StartedFetchPostsType = {
@@ -39,6 +82,75 @@ export type ErrorFetchPostsType = {
   };
 };
 
+export type StartedFetchUserDataType = {
+  type: typeof actionsTypes.STARTED_FETCH_USER_DATA;
+  payload: {
+    state: string;
+  };
+};
+
+export type FinishedFetchUserDataType = {
+  type: typeof actionsTypes.FINISHED_FETCH_USER_DATA;
+  payload: {
+    state: string;
+    user: UserType | null;
+  };
+};
+
+export type ErrorFetchUserDataType = {
+  type: typeof actionsTypes.ERROR_FETCH_USER_DATA;
+  payload: {
+    state: string;
+    error: string;
+  };
+};
+
+export type StartedFetchCommentsType = {
+  type: typeof actionsTypes.STARTED_FETCH_COMMENTS;
+  payload: {
+    state: string;
+  };
+};
+
+export type FinishedFetchCommentsType = {
+  type: typeof actionsTypes.FINISHED_FETCH_COMMENTS;
+  payload: {
+    state: string;
+    comments: Array<CommentType>;
+  };
+};
+
+export type ErrorFetchCommentsType = {
+  type: typeof actionsTypes.ERROR_FETCH_COMMENTS;
+  payload: {
+    state: string;
+    error: string;
+  };
+};
+
+export type StartedFetchPostType = {
+  type: typeof actionsTypes.STARTED_FETCH_POST;
+  payload: {
+    state: string;
+  };
+};
+
+export type FinishedFetchPostType = {
+  type: typeof actionsTypes.FINISHED_FETCH_POST;
+  payload: {
+    state: string;
+    post: PostType;
+  };
+};
+
+export type ErrorFetchPostType = {
+  type: typeof actionsTypes.ERROR_FETCH_POST;
+  payload: {
+    state: string;
+    error: string;
+  };
+};
+
 export type SwipeUpdatePostsType = {
   type: typeof actionsTypes.SWIPE_UPDATE_POSTS;
   payload: {
@@ -58,5 +170,14 @@ export type PostsActionsTypes =
   | StartedFetchPostsType
   | FinishedFetchPostsType
   | ErrorFetchPostsType
+  | StartedFetchUserDataType
+  | FinishedFetchUserDataType
+  | ErrorFetchUserDataType
+  | StartedFetchCommentsType
+  | FinishedFetchCommentsType
+  | ErrorFetchCommentsType
+  | StartedFetchPostType
+  | FinishedFetchPostType
+  | ErrorFetchPostType
   | SwipeUpdatePostsType
   | DeleteAllPostsType;
