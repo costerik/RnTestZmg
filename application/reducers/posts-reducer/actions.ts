@@ -40,37 +40,37 @@ export const errorFetchPosts = (error: string): PostsActionsTypes => ({
 
 export const fetchPosts = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    dispatch(startedFetchPosts());
-    const [readStorage, favStorage, {data}] = await Promise.all([
-      storage.get<Array<number>>('READ'),
-      storage.get<Array<number>>('FAVORITE'),
-      axios.get<Array<PostType>>(`${BASE_URL}/posts`),
-    ]);
-    let readObj: {[key: number]: number} = {},
-      favObj: {[key: number]: number} = {};
-    if (readStorage) {
-      readObj = readStorage.reduce((prev, current): {[key: number]: number} => {
-        prev[current] = current;
-        return prev;
-      }, readObj);
-    }
-    if (favStorage) {
-      favObj = favStorage.reduce((prev, current) => {
-        prev[current] = current;
-        return prev;
-      }, favObj);
-    }
-
-    const newData = data.map((e, index) => {
-      return {
-        ...e,
-        key: e.id.toString(),
-        read: readObj[e.id] !== undefined ? true : index >= 19,
-        favorite: favObj[e.id] ? true : false,
-      };
-    });
-    dispatch(finishedFetchPosts(newData));
     try {
+      dispatch(startedFetchPosts());
+      const [readStorage, favStorage, {data}] = await Promise.all([
+        storage.get<Array<number>>('READ'),
+        storage.get<Array<number>>('FAVORITE'),
+        axios.get<Array<PostType>>(`${BASE_URL}/posts`),
+      ]);
+      let readObj: {[key: number]: number} = {},
+        favObj: {[key: number]: number} = {};
+      if (readStorage) {
+        readObj = readStorage.reduce((prev, current): {[key: number]: number} => {
+          prev[current] = current;
+          return prev;
+        }, readObj);
+      }
+      if (favStorage) {
+        favObj = favStorage.reduce((prev, current) => {
+          prev[current] = current;
+          return prev;
+        }, favObj);
+      }
+
+      const newData = data.map((e, index) => {
+        return {
+          ...e,
+          key: e.id.toString(),
+          read: readObj[e.id] !== undefined ? true : index >= 19,
+          favorite: favObj[e.id] ? true : false,
+        };
+      });
+      dispatch(finishedFetchPosts(newData));
     } catch (e) {
       dispatch(errorFetchPosts(e));
     }
@@ -118,10 +118,10 @@ export const errorFetchUserData = (error: string): PostsActionsTypes => ({
 
 export const fetchUserData = (id: number): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
-    dispatch(startedFetchPosts());
-    const {data} = await axios.get<UserType>(`${BASE_URL}/users/${id}`);
-    dispatch(finishedFetchUserData(data));
     try {
+      dispatch(startedFetchPosts());
+      const {data} = await axios.get<UserType>(`${BASE_URL}/users/${id}`);
+      dispatch(finishedFetchUserData(data));
     } catch (e) {
       dispatch(errorFetchPosts(e));
     }
